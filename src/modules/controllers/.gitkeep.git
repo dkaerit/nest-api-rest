@@ -1,0 +1,4 @@
+CONTROLLERS:
+
+Los controladores son una clase que se encarga de recibir 
+las peticiones del usuario y de responderle con una respuesta.

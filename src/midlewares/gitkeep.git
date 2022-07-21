@@ -1,0 +1,4 @@
+MIDDLEWARES:
+
+Los middlewares son funciones que se ejecutan antes de que se ejecute el controlador.
+Un ejemplo de esto sería guard.

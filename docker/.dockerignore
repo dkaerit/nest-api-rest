@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.dockerignore
+.gitignore
+Dockerfile
+dockerfile
+run.*
+*.ps1
+*.sh
+LICENSE
+README.md

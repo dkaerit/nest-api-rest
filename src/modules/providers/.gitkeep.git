@@ -1,0 +1,5 @@
+SERVICE PROVIDERS:
+
+Un service provider es una clase cuya utilidad es la de encapsular métodos 
+y/o funciones de controllers, helpers e incluso otros services utilizados
+en una aplicación.
