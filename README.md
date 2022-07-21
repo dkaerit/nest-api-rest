@@ -17,7 +17,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications. 
 
-`nest-api-rest` pretende hacer de estructura de partida (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend utilizando `nestjs`. Se pretende recortar tiempo, además de estar pensdo para proyectos de uso didácticos o personales. Este proyecto forma parte de la colección `api rest baseplate` como micro servicios.
+Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend utilizando `nestjs`, además de estar pensdo para proyectos de uso didácticos o personales.
 
 ## Installation
 
