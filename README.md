@@ -6,8 +6,8 @@
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
 <p align="center">
-<img src="https://img.shields.io/github/commit-activity/y/dkaerit/deno-api-rest?color=17a8c8">
-<img src="https://img.shields.io/github/downloads/dkaerit/deno-api-rest/total?color=17a8c8">
+<img src="https://img.shields.io/github/commit-activity/y/dkaerit/nest-api-rest?color=17a8c8">
+<img src="https://img.shields.io/github/downloads/dkaerit/nest-api-rest/total?color=17a8c8">
 <img src="https://img.shields.io/badge/license-MIT-17a8c8" alt="License">
 </p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
