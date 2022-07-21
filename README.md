@@ -23,15 +23,9 @@ Este microservice baseplate pretende hacer de estructura de partida para apis re
 
 ```bash
 $ npm install
-
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ npm run start # development
+$ npm run start:dev # watch mode
+$ npm run start:prod # production mode
 ```
 
 ## Modulos
