@@ -19,15 +19,11 @@
 
 Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend utilizando `nestjs`, además de estar pensdo para proyectos de uso didácticos o personales.
 
-## Installation
+## 1. Installation y ejecución
 
 ```bash
 $ npm install
-```
 
-## Running the app
-
-```bash
 # development
 $ npm run start
 
@@ -37,6 +33,13 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## Modulos
+### Usuarios
+(en proceso)
+
+## Rutas
+(en proceso)
 
 ## Test
 
@@ -57,9 +60,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Diego Vázquez Campos](https://twitter.com/dkaerit)
+- Twitter - [@dkaerit](https://twitter.com/dkaerit)
 
 ## License
 
