@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+export class VersionService {
   getHello(): string {
-    return 'Hello World!';
+    return `API Rest Full - Running in Nestjs 8.0.0`;
   }
 }
