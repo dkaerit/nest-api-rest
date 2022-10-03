@@ -1,0 +1,11 @@
+FACTORIES:
+Es la carpeta donde se especifican los ficheros que 
+montan una base de datos en la aplicación
+
+QUERIES:
+Es la capreta donde se encuentran las funciones que se utilizan como 
+abstracción de flujo de datos entre el backend y la base de datos.
+
+SEEDERS:
+Sirven para inicializar las tablas con datos si 
+se utiliza una base de datos relacional
