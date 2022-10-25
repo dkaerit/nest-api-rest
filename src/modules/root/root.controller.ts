@@ -1,9 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { VersionService } from './root.service';
+import { Controller, Get, Res, HttpStatus } from '@nestjs/common';
+import { RootService } from './root.service';
+import { Response } from 'express';
 
 @Controller()
-export class VersionController {
-  constructor(private readonly versionService: VersionService) {}
+export class RootController {
+  constructor(private readonly rootService: RootService) {}
 
-  @Get() getHello(): string { return this.versionService.getHello(); }
+  @Get() async hello(@Res() res:Response) { 
+    return res
+    .status(HttpStatus.OK)
+    .json({...await this.rootService.appInfo(), "status": HttpStatus.OK });
+  }
 }

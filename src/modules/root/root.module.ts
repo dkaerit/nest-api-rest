@@ -1,12 +1,21 @@
-import { MongoFactory } from '../../../database/mongodb/mongo.factory';
+// common
 import { Module } from '@nestjs/common';
-import { VersionController } from './root.controller';
-import { VersionService } from './root.service';
+import * as dotenv from 'dotenv'; dotenv.config();
 
+// module dependencies
+import { RootController } from './root.controller';
+import { RootService } from './root.service';
+import { UserModule } from '../user/user.module';
+
+// mongoose
+import { MongoFactory } from '../../database/mongo/mongo.factory';
 
 @Module({
-  imports: [MongoFactory],
-  controllers: [VersionController],
-  providers: [VersionService],
+  imports: [
+    MongoFactory,
+    UserModule
+  ],
+  controllers: [RootController],
+  providers: [RootService],
 })
-export class VersionModule {}
+export class RootModule {}
