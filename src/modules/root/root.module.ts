@@ -6,14 +6,15 @@ import * as dotenv from 'dotenv'; dotenv.config();
 import { RootController } from './root.controller';
 import { RootService } from './root.service';
 import { UserModule } from '../user/user.module';
+import { AuthModule } from '../auth/auth.module';
 
 // mongoose
 import { MongoFactory } from '../../database/mongo/mongo.factory';
 
 @Module({
-  imports: [
-    MongoFactory,
-    UserModule
+  imports: [ 
+    MongoFactory, 
+    UserModule, AuthModule 
   ],
   controllers: [RootController],
   providers: [RootService],

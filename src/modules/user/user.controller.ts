@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Res, Req, HttpStatus, HttpCode } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Post, Body, HttpStatus, HttpCode, Param } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserDto, User } from './user.schema';
+import { User } from './user.schema';
+import { UserDto } from './user.dto';
 
-
+// Parte de la infraestructura que se encarga de poder manejar lo que son las peticiones http
+// Interactuar directame con la transferencia de información a nivel de peticiones
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -27,6 +28,16 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   async getUsers(): Promise<User[]> { 
     return await this.userService.readUsers()
+  }
+
+  /**
+   * #brief gestión de la petición post "/users/create" 
+   * #return, lista de usuarios
+   */
+  @Get('/read:user')
+  @HttpCode(HttpStatus.OK)
+  async getUser(@Param('user') username: string): Promise<User> { 
+    return await this.userService.readUserByUsername(username)
   }
 
 

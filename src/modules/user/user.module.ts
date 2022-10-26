@@ -7,6 +7,7 @@ import { UserFeatured } from './user.schema';
 @Module({
   imports: [UserFeatured],
   controllers: [UserController],
-  providers: [UserService]
+  providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}
