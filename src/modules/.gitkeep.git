@@ -1,8 +1,0 @@
-CONTROLLERS:
-
-Los controladores son una clase que se encarga de recibir 
-las peticiones del usuario y de responderle con una respuesta.
-
-En Nestjs no se desarrollan directamente los métodos en los controllers
-sino que se hacen llamadas a los service que actuan como dependencias
-donde sí se desarollan las funcionalidades.

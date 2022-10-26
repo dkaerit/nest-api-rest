@@ -21,7 +21,7 @@ export class UserController {
 
   /**
    * #brief gestión de la petición post "/users/create" 
-   * #return, 
+   * #return, lista de usuarios
    */
   @Get('/read')
   @HttpCode(HttpStatus.OK)
