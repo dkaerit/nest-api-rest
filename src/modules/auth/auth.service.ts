@@ -1,12 +1,12 @@
 import { UserService } from '../user/user.service';
+import { UserDocument } from '../user/user.schema';
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { RegisterAuthDto, LoginAuthDto, UserTokenized } from './auth.dto';
-import { hash, compare } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    private static secret = process.env.TOKEN_SECRET as string;
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService
@@ -17,7 +17,7 @@ export class AuthService {
      * #param
      * #return
      */
-    async register(userObject:RegisterAuthDto) {
+    async register(userObject:RegisterAuthDto): Promise<UserDocument> {
         return await this.userService.createUser(userObject);
     }
 
@@ -26,7 +26,7 @@ export class AuthService {
      * #param
      * #return
      */
-    async login(userObjectLogin:LoginAuthDto) {
+    async login(userObjectLogin:LoginAuthDto): Promise<UserTokenized> {
         const { email, passwd } = userObjectLogin;
         const finded = await this.userService.readUserByEmail(email); 
         const token = this.jwtService.sign({ _id:finded["_id"], user:finded["user"] });

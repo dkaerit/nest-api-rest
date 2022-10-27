@@ -6,7 +6,7 @@ import { Response } from 'express';
 export class RootController {
   constructor(private readonly rootService: RootService) {}
 
-  @Get() async hello(@Res() res:Response) { 
+  @Get() async rootController(@Res() res:Response) { 
     return res
     .status(HttpStatus.OK)
     .json({...await this.rootService.appInfo(), "status": HttpStatus.OK });
