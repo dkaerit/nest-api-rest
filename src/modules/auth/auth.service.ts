@@ -4,12 +4,14 @@ import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { RegisterAuthDto, LoginAuthDto, UserTokenized } from './auth.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { JwtStrategy } from '../../helpers/jwt/jwt.strategy';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userService: UserService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private readonly jwtStrategy: JwtStrategy
     ) {}
 
     /**
@@ -29,8 +31,9 @@ export class AuthService {
     async login(userObjectLogin:LoginAuthDto): Promise<UserTokenized> {
         const { email, passwd } = userObjectLogin;
         const finded = await this.userService.readUserByEmail(email); 
-        const token = this.jwtService.sign({ _id:finded["_id"], user:finded["user"] });
-
+        const payload = await this.jwtStrategy.payload(finded["_id"], finded["user"]);
+        const token = this.jwtService.sign(payload);
+        
         if(!finded) 
         throw new HttpException(`User con email ${email} not found`, HttpStatus.NOT_FOUND);
 

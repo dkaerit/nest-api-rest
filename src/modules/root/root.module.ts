@@ -9,12 +9,13 @@ import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
 
 // mongoose
-import { MongoFactory } from '../../database/mongo/mongo.factory';
+import { MongoModule } from '../../database/mongo/mongo.module';
 
 @Module({
   imports: [ 
-    MongoFactory, 
-    UserModule, AuthModule 
+    MongoModule, 
+    UserModule, 
+    AuthModule 
   ],
   controllers: [RootController],
   providers: [RootService],

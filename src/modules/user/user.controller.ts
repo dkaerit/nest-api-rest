@@ -1,10 +1,14 @@
-import { Controller, Get, Post, Body, HttpStatus, HttpCode, Param } from '@nestjs/common';
+import { JwtGuard } from './../../helpers/jwt/jwt.guard';
+import { Controller, Get, Post, Body, HttpStatus, HttpCode, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
 import { UserDto } from './user.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 // Parte de la infraestructura que se encarga de poder manejar lo que son las peticiones http
 // Interactuar directame con la transferencia de información a nivel de peticiones
+@ApiBearerAuth()
+@ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -25,6 +29,7 @@ export class UserController {
    * #return, lista de usuarios
    */
   @Get('/read')
+  @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.OK)
   async getUsers(): Promise<User[]> { 
     return await this.userService.readUsers()

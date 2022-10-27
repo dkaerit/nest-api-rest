@@ -6,5 +6,5 @@ let username = process.env.USERNAME,
     options = 'retryWrites=true&w=majority',
     url = 'test-crud.z2cjr.azure.mongodb.net/';
 
-export const MongoFactory = MongooseModule
+export const MongoModule = MongooseModule
     .forRoot(`mongodb+srv://${username}:${password}@${url}?${options}`);
