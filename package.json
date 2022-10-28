@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dockerize": "docker-compose -f docker/docker-compose.yml up -d --build",
+    "image": "nest build && docker-compose -f docker/docker-compose.yml up -d --build",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -33,6 +33,7 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.3",
     "mongoose": "^6.6.7",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
