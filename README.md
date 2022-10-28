@@ -20,12 +20,13 @@
 Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend, además de estar pensdo para proyectos de uso didácticos o personales.
 
 ## 1. Instalación y ejecución
-
+### 1.1. Para desarrollar
 ```bash
 $ npm install
 $ npm run start # development
 $ npm run start:dev # watch mode
 $ npm run start:prod # production mode
+$ npm run image # levantar contenedor de prod en docker
 ```
 
 ## 2. Services
