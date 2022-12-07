@@ -60,7 +60,13 @@ Módulo principal de la api donde se unen el resto de módulos para ser importad
 En este punto se conecta la conexión a la base de datos establecida por `MongooseModule.forRoot(...)` y exportado como `MongoModule`. Además, como el resto de módulos, tiene incluido el servicio correspondiente, en este caso, con una única función que devuelve un json con la descripción de la api y su versión que será invocada tras una petición GET a la ruta principal `/`
 
 ```typescript
-(en proceso)
+public async appInfo() {
+    return {
+      "name": "API Rest Full", 
+      "framework": "Nestjs",
+      "version": "8.0.0"
+    };
+  }
 ```
 <a name="user"></a>
 ### 2.1. UserModule
