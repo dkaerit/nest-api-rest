@@ -33,7 +33,9 @@ Este microservice baseplate pretende hacer de estructura de partida para apis re
 <a name="exec"></a>
 ## 1. Instalación y ejecución
 
-Como requisito previo para levantar la imagen de producción es necesario tener instalado `docker` y `docker compose` en el servidor donde se ha decidido clonar el repositorio. Como alternativa se ofrece la posibilidad de instalar las dependencias de node en el propio directorio sin montar ningún contenedor, aunque es más recomendable la primera opción.
+Como requisito previo para levantar la imagen de producción es necesario tener instalado `docker` y `docker compose` en el servidor donde se ha decidido clonar el repositorio. Como alternativa se ofrece la posibilidad de instalar las dependencias de node en el propio directorio sin montar ningún contenedor, aunque es más recomendable la primera opción. 
+
+Para que funcione la consexión a su base de datos de mongo atlas, se debe crear un fichero `.env` en la raíz y definir las variables de entorno para `USERNAME`, `PASSWORD` por las correspondientes credenciales que tengan permisos para el acceso a su base de datos, así como actulizar la parte del `url` de la cadena de conexión ubicada en el fichero `/src/database/mongo/mongo.module.ts`
 
 ```bash
 $ npm install
@@ -48,6 +50,8 @@ $ npm run image # levantar contenedor de prod en docker
 <a name="root"></a>
 ### 2.2. RootModule
 Módulo principal de la api donde se unen el resto de módulos para ser importados en conjuntos en la función `bootstrap()`, que se encuentra en el fichero principal `main.ts`. Con la ayuda de la clase core NestFactory que nos proporciona `nestjs` se crea la instancia de la app, a la que luego se le ordena la escucha del puerto designado.
+
+Además de los módulos 
 
 ```typescript
 (en proceso)
