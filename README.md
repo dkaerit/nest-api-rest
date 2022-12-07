@@ -20,7 +20,6 @@
 Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend, además de estar pensdo para proyectos de uso didácticos o personales.
 
 ## 1. Instalación y ejecución
-### 1.1. Para desarrollar
 ```bash
 $ npm install
 $ npm run start # development
@@ -30,21 +29,33 @@ $ npm run image # levantar contenedor de prod en docker
 ```
 
 ## 2. Services
+### 2.1. UserService
+```typescript
+(en proceso)
+```
+### 2.2. RootService
+```typescript
+(en proceso)
+```
+### 2.3. AuthService
+```typescript
+(en proceso)
+```
 
 ## 3. Modelos
 ### Usuarios
-```bash
+```typescript
 (en proceso)
 ```
 
 ### Posts
-```bash
+```typescript
 (en proceso)
 ```
 
 
 ## 4. Rutas
-```bash
+```typescript
 (en proceso)
 ```
 
