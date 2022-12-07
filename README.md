@@ -37,6 +37,8 @@ Como requisito previo para levantar la imagen de producción es necesario tener 
 
 Para que funcione la consexión a su base de datos de mongo atlas, se debe crear un fichero `.env` en la raíz y definir las variables de entorno para `USERNAME`, `PASSWORD` por las correspondientes credenciales que tengan permisos para el acceso a su base de datos, así como actulizar la parte del `url` de la cadena de conexión ubicada en el fichero `/src/database/mongo/mongo.module.ts`
 
+Comandos para arrancar el servicio:
+
 ```bash
 $ npm install
 $ npm run start # development
