@@ -17,7 +17,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications. 
 
-Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend, además de estar pensdo para proyectos de uso didácticos o personales.
+Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend, además de estar pensdo para proyectos de uso didácticos o personales. Incluye una conexión a un base de datos de Mongo Atlas, y servicio de autenticación por jwt.
 
 ## Tabla de contenidos
 1. [ Instalación y ejecución. ](#exec)
@@ -53,7 +53,7 @@ $ npm run image # levantar contenedor de prod en docker
 ### 2.2. RootModule
 Módulo principal de la api donde se unen el resto de módulos para ser importados en conjuntos en la función `bootstrap()`, que se encuentra en el fichero principal `main.ts`. Con la ayuda de la clase core NestFactory que nos proporciona `nestjs` se crea la instancia de la app, a la que luego se le ordena la escucha del puerto designado.
 
-Además de los módulos 
+En este punto se conecta la conexión a la base de datos establecida por `MongooseModule.forRoot(...)` y exportado como `MongoModule`.
 
 ```typescript
 (en proceso)
