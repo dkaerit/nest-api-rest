@@ -22,8 +22,8 @@ Este microservice baseplate pretende hacer de estructura de partida para apis re
 ## Tabla de contenidos
 1. [ Instalación y ejecución. ](#exec)
 2. [ Modules. ](#services)
-    1. [ UserModule. ](#user)
-    2. [ RootModule. ](#root)
+    1. [ RootModule. ](#root)
+    2. [ UserModule. ](#user)
     3. [ AuthModule. ](#auth)
 4. [ Models. ](#models)
 5. [ Tests. ](#tests)
@@ -42,13 +42,13 @@ $ npm run image # levantar contenedor de prod en docker
 
 <a name="modules"></a>
 ## 2. Modules
-<a name="user"></a>
-### 2.1. UserModule
+<a name="root"></a>
+### 2.2. RootModule
 ```typescript
 (en proceso)
 ```
-<a name="root"></a>
-### 2.2. RootModule
+<a name="user"></a>
+### 2.1. UserModule
 ```typescript
 (en proceso)
 ```
