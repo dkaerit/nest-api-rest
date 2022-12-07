@@ -19,6 +19,11 @@
 
 Este microservice baseplate pretende hacer de estructura de partida para apis rest (como en los boilerplate) para ahorrar código repetitivo y esencial en la implementación de un backend, además de estar pensdo para proyectos de uso didácticos o personales.
 
+## Tabla de contenidos
+1. [ Instalación y ejecución. ](#exec)
+2. [ Services. ](#services)
+
+<a name="exec"></a>
 ## 1. Instalación y ejecución
 ```bash
 $ npm install
@@ -28,6 +33,7 @@ $ npm run start:prod # production mode
 $ npm run image # levantar contenedor de prod en docker
 ```
 
+<a name="services"></a>
 ## 2. Services
 ### 2.1. UserService
 ```typescript
@@ -42,21 +48,16 @@ $ npm run image # levantar contenedor de prod en docker
 (en proceso)
 ```
 
-## 3. Modelos
+<a name="models"></a>
+## 1. Models
 ### Usuarios
 ```typescript
-(en proceso)
-```
-
-### Posts
-```typescript
-(en proceso)
-```
-
-
-## 4. Rutas
-```typescript
-(en proceso)
+@Schema({ versionKey: '_vk' }) 
+export class User { 
+  @Prop({unique:true}) user: string;
+  @Prop({unique:true}) email: string;
+  @Prop() passwd: string;
+}
 ```
 
 ## 3. Test
