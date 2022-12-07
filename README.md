@@ -21,14 +21,14 @@ Este microservice baseplate pretende hacer de estructura de partida para apis re
 
 ## Tabla de contenidos
 1. [ Instalación y ejecución. ](#exec)
-2. [ Services. ](#services)
-    1. [ UserService. ](#services)
-    2. [ RootService. ](#services)
-    3. [ AuthService. ](#services)
-4. [ Models. ](#services)
-5. [ Tests. ](#services)
-6. [ Support Nest. ](#services)
-7. [ Stay in touch. ](#services)
+2. [ Modules. ](#services)
+    1. [ UserModule. ](#user)
+    2. [ RootModule. ](#root)
+    3. [ AuthModule. ](#auth)
+4. [ Models. ](#models)
+5. [ Tests. ](#tests)
+6. [ Support Nest. ](#support)
+7. [ Contact. ](#contact)
 
 <a name="exec"></a>
 ## 1. Instalación y ejecución
@@ -40,17 +40,20 @@ $ npm run start:prod # production mode
 $ npm run image # levantar contenedor de prod en docker
 ```
 
-<a name="services"></a>
-## 2. Services
-### 2.1. UserService
+<a name="modules"></a>
+## 2. Modules
+<a name="user"></a>
+### 2.1. UserModule
 ```typescript
 (en proceso)
 ```
-### 2.2. RootService
+<a name="root"></a>
+### 2.2. RootModule
 ```typescript
 (en proceso)
 ```
-### 2.3. AuthService
+<a name="auth"></a>
+### 2.3. AuthModule
 ```typescript
 (en proceso)
 ```
@@ -79,7 +82,7 @@ $ npm run test:cov # test coverage
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## 6. Stay in touch
+## 6. Contact
 
 - Author - [Diego Vázquez Campos](https://twitter.com/dkaerit)
 - Twitter - [@dkaerit](https://twitter.com/dkaerit)
