@@ -22,6 +22,13 @@ Este microservice baseplate pretende hacer de estructura de partida para apis re
 ## Tabla de contenidos
 1. [ Instalación y ejecución. ](#exec)
 2. [ Services. ](#services)
+2.1. [ UserService. ](#services)
+2.2. [ RootService. ](#services)
+2.3. [ AuthService. ](#services)
+4. [ Models. ](#services)
+5. [ Tests. ](#services)
+6. [ Support Nest. ](#services)
+7. [ Stay in touch. ](#services)
 
 <a name="exec"></a>
 ## 1. Instalación y ejecución
@@ -49,7 +56,7 @@ $ npm run image # levantar contenedor de prod en docker
 ```
 
 <a name="models"></a>
-## 1. Models
+## 3. Models
 ### Usuarios
 ```typescript
 @Schema({ versionKey: '_vk' }) 
@@ -60,7 +67,7 @@ export class User {
 }
 ```
 
-## 3. Test
+## 4. Tests
 
 ```bash
 $ npm run test # unit tests
@@ -68,11 +75,11 @@ $ npm run test:e2e # e2e tests
 $ npm run test:cov # test coverage
 ```
 
-## 4. Support Nest
+## 5. Support Nest
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## 5. Stay in touch
+## 6. Stay in touch
 
 - Author - [Diego Vázquez Campos](https://twitter.com/dkaerit)
 - Twitter - [@dkaerit](https://twitter.com/dkaerit)
