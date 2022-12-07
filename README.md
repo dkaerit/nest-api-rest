@@ -32,6 +32,9 @@ Este microservice baseplate pretende hacer de estructura de partida para apis re
 
 <a name="exec"></a>
 ## 1. Instalación y ejecución
+
+Como requisito previo para levantar la imagen de producción es necesario tener instalado `docker` y `docker compose` en el servidor donde se ha decidido clonar el repositorio. Como alternativa se ofrece la posibilidad de instalar las dependencias de node en el propio directorio sin montar ningún contenedor, aunque es más recomendable la primera opción.
+
 ```bash
 $ npm install
 $ npm run start # development
