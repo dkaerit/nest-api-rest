@@ -52,7 +52,8 @@ $ npm run image # levantar contenedor de prod en docker
 <a name="root"></a>
 ### 2.2. RootModule
 
-![a drawio (1)](https://user-images.githubusercontent.com/24440929/206225990-567408db-8904-4032-9cbc-941fb648ce14.png)
+![a drawio (1)](https://user-images.githubusercontent.com/24440929/206227124-8f314f1c-6d85-419c-9893-a9564514c8c8.png)
+
 
 Módulo principal de la api donde se unen el resto de módulos para ser importados en conjuntos en la función `bootstrap()`, que se encuentra en el fichero principal `main.ts`. Con la ayuda de la clase core NestFactory que nos proporciona `nestjs` se crea la instancia de la app, a la que luego se le ordena la escucha del puerto designado.
 
