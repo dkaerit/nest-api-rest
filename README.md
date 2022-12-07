@@ -47,6 +47,8 @@ $ npm run image # levantar contenedor de prod en docker
 ## 2. Modules
 <a name="root"></a>
 ### 2.2. RootModule
+Módulo principal de la api donde se unen el resto de módulos para ser importados en conjuntos en la función `bootstrap()`, que se encuentra en el fichero principal `main.ts`. Con la ayuda de la clase core NestFactory que nos proporciona `nestjs` se crea la instancia de la app, a la que luego se le ordena la escucha del puerto designado.
+
 ```typescript
 (en proceso)
 ```
