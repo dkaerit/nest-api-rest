@@ -51,9 +51,12 @@ $ npm run image # levantar contenedor de prod en docker
 ## 2. Modules
 <a name="root"></a>
 ### 2.2. RootModule
+
+![a drawio (1)](https://user-images.githubusercontent.com/24440929/206225990-567408db-8904-4032-9cbc-941fb648ce14.png)
+
 Módulo principal de la api donde se unen el resto de módulos para ser importados en conjuntos en la función `bootstrap()`, que se encuentra en el fichero principal `main.ts`. Con la ayuda de la clase core NestFactory que nos proporciona `nestjs` se crea la instancia de la app, a la que luego se le ordena la escucha del puerto designado.
 
-En este punto se conecta la conexión a la base de datos establecida por `MongooseModule.forRoot(...)` y exportado como `MongoModule`.
+En este punto se conecta la conexión a la base de datos establecida por `MongooseModule.forRoot(...)` y exportado como `MongoModule`. Además, como el resto de módul
 
 ```typescript
 (en proceso)
