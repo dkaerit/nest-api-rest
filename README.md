@@ -50,7 +50,7 @@ $ npm run image # levantar contenedor de prod en docker
 <a name="modules"></a>
 ## 2. Modules
 <a name="root"></a>
-### 2.2. RootModule
+### 2.1. RootModule
 
 ![a drawio (1)](https://user-images.githubusercontent.com/24440929/206227124-8f314f1c-6d85-419c-9893-a9564514c8c8.png)
 
@@ -69,7 +69,7 @@ public async appInfo() {
   }
 ```
 <a name="user"></a>
-### 2.1. UserModule
+### 2.2. UserModule
 ```typescript
 (en proceso)
 ```
