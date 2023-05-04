@@ -1,4 +1,4 @@
-import { JwtGuard } from './../../helpers/jwt/jwt.guard';
+import { JwtGuard } from '../auth/jwt/jwt.guard';
 import { Controller, Get, Post, Body, HttpStatus, HttpCode, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';

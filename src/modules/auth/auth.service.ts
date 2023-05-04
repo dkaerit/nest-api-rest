@@ -4,7 +4,7 @@ import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { RegisterAuthDto, LoginAuthDto, UserTokenized } from './auth.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { JwtStrategy } from '../../helpers/jwt/jwt.strategy';
+import { JwtStrategy } from './jwt/jwt.strategy';
 
 @Injectable()
 export class AuthService {

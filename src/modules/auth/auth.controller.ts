@@ -9,18 +9,16 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     /**
-     * #brief,
-     * #param
-     * #return
+     * #brief, Registra un usuario en la aplicación
+     * #param userObject: RegisterAuthDto, objeto con los datos del usuario a registrar
      */
     @Post('/register') registerUser(@Body() userObject: RegisterAuthDto) {
      return this.authService.register(userObject);
     }
 
     /**
-     * #brief,
-     * #param
-     * #return
+     * #brief, Inicia sesión de un usuario en la aplicación
+     * #param userObjectLogin: LoginAuthDto, objeto con los datos del usuario a autenticar
      */
     @Post('/login') loginUser(@Body() userObjectLogin: LoginAuthDto) {
         return this.authService.login(userObjectLogin);  
