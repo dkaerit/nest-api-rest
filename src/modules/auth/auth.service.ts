@@ -5,6 +5,7 @@ import { RegisterAuthDto, LoginAuthDto, UserTokenized } from './auth.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
+import { omit } from 'lodash';
 
 @Injectable()
 export class AuthService {
@@ -15,18 +16,18 @@ export class AuthService {
     ) {}
 
     /**
-     * #brief,
-     * #param
-     * #return
+     * #brief, Función para añadir usuario, la cual hace uso del controlador ya existente del modulo user
+     * #param RegisterAuthDto, información del usuario a registrar
+     * #return Promise<UserDocument>, retorna información del usuario registrado
      */
     async register(userObject:RegisterAuthDto): Promise<UserDocument> {
         return await this.userService.createUser(userObject);
     }
 
     /**
-     * #brief,
-     * #param
-     * #return
+     * #brief, función para lrecibir el token de sesión
+     * #param LoginAuthDto, objeto que contiene la información recibida desde el formulario de login
+     * #return Promise<UserTokenized>, promesa con el token de sesión
      */
     async login(userObjectLogin:LoginAuthDto): Promise<UserTokenized> {
         const { email, passwd } = userObjectLogin;
@@ -40,6 +41,7 @@ export class AuthService {
         if(!await compare(passwd, finded.passwd)) 
         throw new HttpException(`Password ${passwd} incorrect`, HttpStatus.FORBIDDEN);
 
-        return { ...finded["_doc"], token };
+        const keysToDelete = ["passwd", "email", "_vk", "user"];
+        return { ...(omit(finded["_doc"], keysToDelete)), token };
     }
 }
