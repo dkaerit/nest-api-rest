@@ -19,7 +19,5 @@ async function bootstrap() {
   const availableRoutes = app.getHttpServer()._events.request._router.stack
   .reduce((acc, layer) => layer.route && !layer.route.path.startsWith('/api')? 
   { ...acc, [layer.route.path]: layer.route.stack[0].method } : acc, {});
-
-  console.log(availableRoutes);
 }
 bootstrap();
