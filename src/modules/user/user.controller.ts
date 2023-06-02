@@ -31,7 +31,7 @@ export class UserController {
   @Get('/read')
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.OK)
-  async getUsers(): Promise<User[]> { 
+  async getUsers(): Promise<UserDto[]> { 
     return await this.userService.readUsers()
   }
 
@@ -41,7 +41,7 @@ export class UserController {
    */
   @Get('/read:user')
   @HttpCode(HttpStatus.OK)
-  async getUser(@Param('user') username: string): Promise<User> { 
+  async getUser(@Param('user') username: string): Promise<UserDto> { 
     return await this.userService.readUserByUsername(username)
   }
 
