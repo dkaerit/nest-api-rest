@@ -29,7 +29,7 @@ export class AuthService {
      * #param LoginAuthDto, objeto que contiene la información recibida desde el formulario de login
      * #return Promise<UserTokenized>, promesa con el token de sesión
      */
-    async login(userObjectLogin:LoginAuthDto): Promise<UserTokenized> {
+    async loginJWT(userObjectLogin:LoginAuthDto): Promise<UserTokenized> {
         const { email, passwd } = userObjectLogin;
         const finded = await this.userService.readUserByEmail(email); 
         const payload = await this.jwtStrategy.payload(finded["_id"], finded["user"]);
@@ -43,5 +43,14 @@ export class AuthService {
 
         const keysToDelete = ["passwd", "email", "_vk", "user"];
         return { ...(omit(finded["_doc"], keysToDelete)), token };
+    }
+
+    /**
+     * #brief, función para lrecibir el token de sesión
+     * #param LoginAuthDto, objeto que contiene la información recibida desde el formulario de login
+     * #return Promise<UserTokenized>, promesa con el token de sesión
+     */
+    async loginWithGoogle(): Promise<UserTokenized> {
+        return {"token":""}
     }
 }

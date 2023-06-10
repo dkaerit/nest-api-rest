@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { RegisterAuthDto, LoginAuthDto } from './auth.dto';
@@ -20,7 +20,15 @@ export class AuthController {
      * #brief, Inicia sesión de un usuario en la aplicación
      * #param userObjectLogin: LoginAuthDto, objeto con los datos del usuario a autenticar
      */
-    @Post('/login') loginUser(@Body() userObjectLogin: LoginAuthDto) {
-        return this.authService.login(userObjectLogin);  
+    @Post('/jwt') loginJWT(@Body() userObjectLogin: LoginAuthDto) {
+        return this.authService.loginJWT(userObjectLogin);  
+    }
+
+    /**
+     * #brief, Inicia sesión de un usuario en la aplicación
+     * #param userObjectLogin: LoginAuthDto, objeto con los datos del usuario a autenticar
+     */
+    @Get('/google') loginWithGoogle() {
+        return this.authService.loginWithGoogle();  
     }
 }
