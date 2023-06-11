@@ -34,28 +34,48 @@ export class UserService {
   }
 
   /**
+   * #brief encuentra un usuario en la base de datos dado un campo y un valor de búsqueda
+   * #param field, string con el nombre del campo de búsqueda (username, email, tlfn)
+   * #param value, valor a buscar en el campo especificado
+   * #return usuario encontrado
+   */
+  private async findUserByField(field: string, value: string): Promise<UserDto> {
+    value = value.replace(':', '')
+    const found = await this.userModel.findOne({ [field]: value }).exec();
+    
+    if (!found) 
+    throw new HttpException(`User with ${field} '${value}' not found`, HttpStatus.NOT_FOUND);
+
+    return found.toObject();
+  }
+
+  /**
    * #brief encuentra un usuario en la base de datos dado un username
    * #param username, string con el nombre del usuario
-   * #return usario encontrado
+   * #return usuario encontrado
    */
-  public async readUserByUsername(username:string): Promise<UserDto> {
-    const name = username.replace(':', '');
-    const finded = await this.userModel.findOne({user:name}).exec(); 
-    const keysToDelete = ["passwd"];
-    if(!finded) throw new HttpException(`User '${name}' not found`, HttpStatus.NOT_FOUND);
-    return omit(finded.toObject(), keysToDelete);
+  public async readUserByUsername(username: string): Promise<UserDto> {
+    return this.findUserByField('user', username);
   }
 
   /**
    * #brief encuentra un usuario en la base de datos dado un email
    * #param email, string con el email del usuario
-   * #return usario encontrado
+   * #return usuario encontrado
    */
-  public async readUserByEmail(email:string): Promise<UserDto> {
-    const finded = await this.userModel.findOne({email}).exec(); 
-    if(!finded) throw new HttpException(`User with email '${email}' not found`, HttpStatus.NOT_FOUND);
-    return finded;
+  public async readUserByEmail(email: string): Promise<UserDto> {
+    return this.findUserByField('email', email);
   }
+
+  /**
+   * #brief encuentra un usuario en la base de datos dado un número de teléfono
+   * #param tlfn, string con el número de teléfono del usuario
+   * #return usuario encontrado
+   */
+  public async readUserByTlfn(tlfn: string): Promise<UserDto> {
+    return this.findUserByField('tlfn', tlfn);
+  }
+
 
 
 }

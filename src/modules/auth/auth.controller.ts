@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { RegisterAuthDto, LoginAuthDto } from './auth.dto';
+import { RegisterAuthDto, LoginEmailAuthDto, LoginUsernameAuthDto, LoginTlfnAuthDto } from './auth.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -9,26 +9,46 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     /**
-     * #brief, Registra un usuario en la aplicación
-     * #param userObject: RegisterAuthDto, objeto con los datos del usuario a registrar
+     * Registra un usuario en la aplicación.
+     * #param userObject - Objeto RegisterAuthDto con los datos del usuario a registrar.
      */
-    @Post('/register') registerUser(@Body() userObject: RegisterAuthDto) {
-     return this.authService.register(userObject);
+    @Post('/register')
+    registerUser(@Body() userObject: RegisterAuthDto) {
+        return this.authService.register(userObject);
     }
 
     /**
-     * #brief, Inicia sesión de un usuario en la aplicación
-     * #param userObjectLogin: LoginAuthDto, objeto con los datos del usuario a autenticar
+     * Inicia sesión de un usuario en la aplicación utilizando el correo electrónico.
+     * #param userObjectLogin - Objeto LoginEmailAuthDto con los datos del usuario a autenticar.
      */
-    @Post('/jwt') loginJWT(@Body() userObjectLogin: LoginAuthDto) {
-        return this.authService.loginJWT(userObjectLogin);  
+    @Post('/login/email')
+    loginWithEmail(@Body() userObjectLogin: LoginEmailAuthDto) {
+        return this.authService.loginWithEmail(userObjectLogin);
     }
 
     /**
-     * #brief, Inicia sesión de un usuario en la aplicación
-     * #param userObjectLogin: LoginAuthDto, objeto con los datos del usuario a autenticar
+     * Inicia sesión de un usuario en la aplicación utilizando el nombre de usuario.
+     * #param userObjectLogin - Objeto LoginUsernameAuthDto con los datos del usuario a autenticar.
      */
-    @Get('/google') loginWithGoogle() {
-        return this.authService.loginWithGoogle();  
+    @Post('/login/username')
+    loginWithUsername(@Body() userObjectLogin: LoginUsernameAuthDto) {
+        return this.authService.loginWithUsername(userObjectLogin);
+    }
+
+    /**
+     * Inicia sesión de un usuario en la aplicación utilizando el número de teléfono.
+     * #param userObjectLogin - Objeto LoginTlfnAuthDto con los datos del usuario a autenticar.
+     */
+    @Post('/login/tlfn')
+    loginWithTlfn(@Body() userObjectLogin: LoginTlfnAuthDto) {
+        return this.authService.loginWithTlfn(userObjectLogin);
+    }
+
+    /**
+     * Inicia sesión de un usuario en la aplicación utilizando Google.
+     */
+    @Get('/google')
+    loginWithGoogle() {
+        return this.authService.loginWithGoogle();
     }
 }

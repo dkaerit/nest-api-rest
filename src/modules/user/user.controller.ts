@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { User } from './user.schema';
 import { UserDto } from './user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { omit } from 'lodash';
 
 // Parte de la infraestructura que se encarga de poder manejar lo que son las peticiones http
 // Interactuar directame con la transferencia de información a nivel de peticiones
@@ -42,7 +43,8 @@ export class UserController {
   @Get('/read:user')
   @HttpCode(HttpStatus.OK)
   async getUser(@Param('user') username: string): Promise<UserDto> { 
-    return await this.userService.readUserByUsername(username)
+    const keysToDelete = ["passwd"];
+    return omit(await this.userService.readUserByUsername(username), keysToDelete);
   }
 
 
