@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { RootModule } from './modules/root/root.module';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(RootModule);
+  const app = await NestFactory.create<NestExpressApplication>(RootModule);
   const config = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('Nest js api rest full')
@@ -13,6 +14,16 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  // temp - Configurar las opciones de CORS con un comodín
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+  });
 
   await app.listen(3000);
 

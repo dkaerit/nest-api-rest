@@ -40,7 +40,8 @@ export class UserService {
    * #return usuario encontrado
    */
   private async findUserByField(field: string, value: string): Promise<UserDto> {
-    value = value.replace(':', '')
+    value = value.replace(':', '');
+
     const found = await this.userModel.findOne({ [field]: value }).exec();
     
     if (!found) 
