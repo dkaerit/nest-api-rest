@@ -47,7 +47,7 @@ export class AuthController {
     /**
      * Inicia sesión de un usuario en la aplicación utilizando Google.
      */
-    @Get('/google')
+    @Get('/login/google')
     loginWithGoogle() {
         return this.authService.loginWithGoogle();
     }
