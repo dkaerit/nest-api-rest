@@ -4,7 +4,7 @@ import { UserDocument } from '../user/user.schema';
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { JwtStrategy } from './jwt/jwt.strategy';
+import { JwtStrategy } from '../../streategies/jwt/jwt.strategy';
 import { omit } from 'lodash';
 import { RegisterAuthDto, LoginEmailAuthDto, LoginUsernameAuthDto, LoginTlfnAuthDto, UserTokenized } from './auth.dto';
 
@@ -37,14 +37,19 @@ export class AuthService {
 
     private async loginWithCredentials(identifier:string, found: UserDto, passwd: string): Promise<UserTokenized> {
         if (!found) 
-        throw new HttpException(`User with identifier ${identifier} not found`, HttpStatus.NOT_FOUND);
+            throw new HttpException(`User with identifier ${identifier} not found`, HttpStatus.NOT_FOUND);
 
-        const payload = await this.jwtStrategy.payload(found["_id"], found["user"]);
+        // Crea un payload (información del usuario), un argumento necesario para obtener posteriormente el token con JWT.
+        const payload = await this.jwtStrategy.payload(found["_id"], found["user"]); 
         const token = this.jwtService.sign(payload);
         
+        // Compara la contraseña proporcionada con la contraseña almacenada en la base de datos.
+        // La función "compare" verifica que las contraseñas coincidan sin exponer la contraseña real en el proceso.
         if (!(await compare(passwd, found.passwd))) 
-        throw new HttpException('Invalid password', HttpStatus.UNAUTHORIZED);
+            throw new HttpException('Invalid password', HttpStatus.UNAUTHORIZED);
         
+        // Elimina ciertas claves sensibles del objeto de usuario antes de devolverlo.
+        // Esto se hace para proteger la privacidad del usuario y evitar la exposición de datos confidenciales.
         const keysToDelete = ["passwd", "email", "_vk", "user"];
         return { ...(omit(found["_doc"], keysToDelete)), token };
     }
@@ -57,8 +62,8 @@ export class AuthService {
 
     async loginWithEmail(userObjectLogin: LoginEmailAuthDto): Promise<UserTokenized> {
         const { email, passwd } = userObjectLogin;
-        const user = await this.userService.readUserByEmail(email);
-        return this.loginWithCredentials(email, user, passwd);
+        const user = await this.userService.readUserByEmail(email); // Busca al usuario por su dirección de correo electrónico.
+        return this.loginWithCredentials(email, user, passwd); // Llama a la función para autenticar al usuario con las credenciales proporcionadas.
     }
 
     /**
@@ -68,9 +73,9 @@ export class AuthService {
      */
     
     async loginWithUsername(userObjectLogin: LoginUsernameAuthDto): Promise<UserTokenized> {
-        const { username, passwd } = userObjectLogin;
-        const user = await this.userService.readUserByUsername(username);
-        return this.loginWithCredentials(username, user, passwd);
+        const { username, passwd } = userObjectLogin; 
+        const user = await this.userService.readUserByUsername(username); // Busca al usuario por su nombre de usuario.
+        return this.loginWithCredentials(username, user, passwd); // Llama a la función para autenticar al usuario con las credenciales proporcionadas.
     }
 
     /**
@@ -81,8 +86,8 @@ export class AuthService {
     
     async loginWithTlfn(userObjectLogin: LoginTlfnAuthDto): Promise<UserTokenized> {
         const { tlfn, passwd } = userObjectLogin;
-        const user = await this.userService.readUserByTlfn(tlfn);
-        return this.loginWithCredentials(tlfn, user, passwd);
+        const user = await this.userService.readUserByTlfn(tlfn); // Busca al usuario por su número de teléfono.
+        return this.loginWithCredentials(tlfn, user, passwd); // Llama a la función para autenticar al usuario con las credenciales proporcionadas.
     }
 
     /**

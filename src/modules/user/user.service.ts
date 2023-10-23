@@ -17,9 +17,12 @@ export class UserService {
    */
   public async createUser(userObject:UserDto): Promise<UserDocument> {
     const { passwd } = userObject;
-    return new this.userModel({
-      ...userObject, 
-      passwd: await hash(passwd, 10)
+
+    // Crea un nuevo documento de usuario utilizando el modelo de usuario.
+    // Guarda el nuevo documento de usuario en la base de datos y devuelve una promesa con el usuario creado.
+    return new this.userModel({ 
+      ...userObject, // Copia todos los campos del objeto del usuario.
+      passwd: await hash(passwd, 10) // Realiza un hash de la contraseña antes de almacenarla.
     }).save();
   }
   
@@ -29,25 +32,23 @@ export class UserService {
    */
   public async readUsers(): Promise<UserDto[]> {
     const keysToDelete = ["passwd"];
-    return this.userModel.find().exec()
-    .then(document => document.map(user => omit(user.toObject(), keysToDelete)));
+    return this.userModel.find().exec().then(document => document.map(user => omit(user.toObject(), keysToDelete)));
   }
 
   /**
-   * #brief encuentra un usuario en la base de datos dado un campo y un valor de búsqueda
+   * Encuentra un usuario en la base de datos dado un campo y un valor de búsqueda
    * #param field, string con el nombre del campo de búsqueda (username, email, tlfn)
    * #param value, valor a buscar en el campo especificado
    * #return usuario encontrado
    */
   private async findUserByField(field: string, value: string): Promise<UserDto> {
-    value = value.replace(':', '');
-
-    const found = await this.userModel.findOne({ [field]: value }).exec();
+    value = value.replace(':', ''); // Elimina cualquier caracter ':' del valor proporcionado.
+    const found = await this.userModel.findOne({ [field]: value }).exec(); // Realiza una búsqueda en la base de datos utilizando el campo y valor especificados.
     
-    if (!found) 
-    throw new HttpException(`User with ${field} '${value}' not found`, HttpStatus.NOT_FOUND);
+    if (!found) // Verifica si se encontró un usuario, de lo contrario, lanza una excepción.
+      throw new HttpException(`User with ${field} '${value}' not found`, HttpStatus.NOT_FOUND);
 
-    return found.toObject();
+    return found.toObject(); // Convierte el usuario encontrado en un objeto de usuario y lo devuelve.
   }
 
   /**

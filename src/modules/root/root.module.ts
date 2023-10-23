@@ -9,13 +9,13 @@ import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
 
 // mongoose
-import { MongoModule } from '../../database/mongo/mongo.module';
+import { MongoModule } from '../../database/mongo.module';
 
 @Module({
   imports: [ 
-    MongoModule, 
-    UserModule, 
-    AuthModule 
+    MongoModule, // Módulo de MongoDB.
+    UserModule, // Módulo de usuarios (dependencia).
+    AuthModule // Módulo de usuarios (dependencia).
   ],
   controllers: [RootController],
   providers: [RootService],
