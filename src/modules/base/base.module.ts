@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 import * as dotenv from 'dotenv'; dotenv.config();
 
 // module dependencies
-import { RootController } from './root.controller';
-import { RootService } from './root.service';
+import { BaseController } from './base.controller';
+import { BaseService } from './base.service';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
 
@@ -17,7 +17,7 @@ import { MongoModule } from '../../database/mongo.module';
     UserModule, // Módulo de usuarios (dependencia).
     AuthModule // Módulo de usuarios (dependencia).
   ],
-  controllers: [RootController],
-  providers: [RootService],
+  controllers: [BaseController],
+  providers: [BaseService],
 })
-export class RootModule {}
+export class BaseModule {}

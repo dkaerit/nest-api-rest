@@ -2,7 +2,7 @@ import { UserService } from '../user/user.service';
 import { UserDto } from '../user/user.dto';
 import { UserDocument } from '../user/user.schema';
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from '../../streategies/jwt/jwt.strategy';
 import { omit } from 'lodash';

@@ -1,5 +1,5 @@
 import { Controller, Get, Res, HttpStatus } from '@nestjs/common';
-import { RootService } from './root.service';
+import { BaseService } from './base.service';
 import { Response } from 'express';
 import { Req } from '@nestjs/common';
 import { Request, Router } from 'express';
@@ -10,8 +10,8 @@ import { Request, Router } from 'express';
  */
 
 @Controller()
-export class RootController {
-  constructor(private readonly rootService: RootService) {}
+export class BaseController {
+  constructor(private readonly rootService: BaseService) {}
 
   /**
    * Maneja solicitudes GET en la ruta raíz ("/").
@@ -23,7 +23,7 @@ export class RootController {
    */
 
   @Get("/")
-  async rootController(@Res() res:Response, @Req() req:Request) { 
+  async baseController(@Res() res:Response, @Req() req:Request) { 
     
     // Obtiene una referencia al enrutador Express a través de la solicitud.
     const router = req.app._router as Router; 
