@@ -31,3 +31,7 @@ export class RegisterAuthDto extends PartialType(LoginEmailAuthDto) {
 export class UserTokenized extends PartialType(RegisterAuthDto) {
     @ApiProperty() readonly "token": string; // token solo lectura
 }
+
+export class TokenAuthenticationDto {
+    @ApiProperty() readonly authentication: string;
+  }

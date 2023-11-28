@@ -14,7 +14,7 @@ export class AuthService {
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
         private readonly jwtStrategy: JwtStrategy
-    ) {}
+    ) { }
 
     /**
      * #brief, Función para añadir usuario, la cual hace uso del controlador ya existente del modulo user
@@ -22,7 +22,7 @@ export class AuthService {
      * #return Promise<UserDocument>, retorna información del usuario registrado
      */
 
-    async register(userObject:RegisterAuthDto): Promise<UserDocument> {
+    async register(userObject: RegisterAuthDto): Promise<UserDocument> {
         return await this.userService.createUser(userObject);
     }
 
@@ -35,19 +35,19 @@ export class AuthService {
      * #throws HttpException si el usuario no se encuentra o la contraseña es inválida.
      */
 
-    private async loginWithCredentials(identifier:string, found: UserDto, passwd: string): Promise<UserTokenized> {
-        if (!found) 
+    private async loginWithCredentials(identifier: string, found: UserDto, passwd: string): Promise<UserTokenized> {
+        if (!found)
             throw new HttpException(`User with identifier ${identifier} not found`, HttpStatus.NOT_FOUND);
 
         // Crea un payload (información del usuario), un argumento necesario para obtener posteriormente el token con JWT.
-        const payload = await this.jwtStrategy.payload(found["_id"], found["user"]); 
+        const payload = await this.jwtStrategy.payload(found["_id"], found["user"]);
         const token = this.jwtService.sign(payload);
-        
+
         // Compara la contraseña proporcionada con la contraseña almacenada en la base de datos.
         // La función "compare" verifica que las contraseñas coincidan sin exponer la contraseña real en el proceso.
-        if (!(await compare(passwd, found.passwd))) 
+        if (!(await compare(passwd, found.passwd)))
             throw new HttpException('Invalid password', HttpStatus.UNAUTHORIZED);
-        
+
         // Elimina ciertas claves sensibles del objeto de usuario antes de devolverlo.
         // Esto se hace para proteger la privacidad del usuario y evitar la exposición de datos confidenciales.
         const keysToDelete = ["passwd", "email", "_vk", "user"];
@@ -71,9 +71,9 @@ export class AuthService {
      * #param LoginUsernameAuthDto - obj. que contiene la información recibida desde el formul. de login
      * #return Promise<UserTokenized> - promesa con el token de sesión
      */
-    
+
     async loginWithUsername(userObjectLogin: LoginUsernameAuthDto): Promise<UserTokenized> {
-        const { username, passwd } = userObjectLogin; 
+        const { username, passwd } = userObjectLogin;
         const user = await this.userService.readUserByUsername(username); // Busca al usuario por su nombre de usuario.
         return this.loginWithCredentials(username, user, passwd); // Llama a la función para autenticar al usuario con las credenciales proporcionadas.
     }
@@ -83,7 +83,7 @@ export class AuthService {
      * #param LoginTlfnAuthDto - objeto que contiene la información recibida desde el formulario de login
      * #return Promise<UserTokenized> - promesa con el token de sesión
      */
-    
+
     async loginWithTlfn(userObjectLogin: LoginTlfnAuthDto): Promise<UserTokenized> {
         const { tlfn, passwd } = userObjectLogin;
         const user = await this.userService.readUserByTlfn(tlfn); // Busca al usuario por su número de teléfono.
@@ -96,6 +96,25 @@ export class AuthService {
      * #return Promise<UserTokenized>, promesa con el token de sesión
      */
     async loginWithGoogle(): Promise<UserTokenized> {
-        return {"token":""}
+        return { "token": "" }
+    }
+
+    /**
+     * #brief, Verifica la expiración de un token JWT.
+     * #param token - El token JWT que se va a verificar.
+     * #return Una promesa que resuelve en un objeto { expired: boolean } indicando si el token ha expirado.
+     * #throws HttpException si el token es inválido o ha expirado.
+     */
+
+    async checkTokenExpiration(token: string): Promise<{ expired: boolean }> {
+        try {
+            const decodedToken = this.jwtService.verify(token);
+            const expirationTime = decodedToken.exp;
+            const isExpired = expirationTime < Date.now() / 1000;
+            return { expired: isExpired };
+
+        } catch (error) {
+            throw new HttpException('Invalid token or token expired', HttpStatus.UNAUTHORIZED);
+        }
     }
 }

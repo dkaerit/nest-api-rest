@@ -1,7 +1,7 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body, Headers } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { RegisterAuthDto, LoginEmailAuthDto, LoginUsernameAuthDto, LoginTlfnAuthDto } from './auth.dto';
+import { RegisterAuthDto, LoginEmailAuthDto, LoginUsernameAuthDto, LoginTlfnAuthDto, TokenAuthenticationDto } from './auth.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -50,5 +50,10 @@ export class AuthController {
     @Get('/login/google')
     loginWithGoogle() {
         return this.authService.loginWithGoogle();
+    }
+
+    @Get('/expiration')
+    checkTokenExpiration(@Headers('authorization') token: string) {
+        return this.authService.checkTokenExpiration(token);
     }
 }
