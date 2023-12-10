@@ -14,10 +14,6 @@ jobs:
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
-    strategy:
-      matrix:
-        path: ['backend']
-
     steps:
       - name: Checkout (Copy) repository
         uses: actions/checkout@v3
@@ -28,13 +24,10 @@ jobs:
           node-version: 20
 
       - name: Install NestJS CLI
-        if: matrix.path == 'backend'
         run: npm install -g @nestjs/cli
 
       - name: Install Dependencies
         run: npm install
-        working-directory: ${{ matrix.path }}
 
       - name: Run Tests
         run: npm run test
-        working-directory: ${{ matrix.path }}
