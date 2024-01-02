@@ -1,5 +1,5 @@
 import { JwtGuard } from '../../streategies/jwt/jwt.guard';
-import { Controller, Get, Post, Body, HttpStatus, HttpCode, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpStatus, HttpCode, Param, UseGuards, HttpException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
 import { UserDto } from './user.dto';
@@ -46,6 +46,33 @@ export class UserController {
     const keysToDelete = ["passwd"];
     return omit(await this.userService.readUserByUsername(username), keysToDelete);
   }
+
+  /**
+   * Ruta para verificar la existencia de un usuario o email en la base de datos.
+   * #param body, cuerpo de la petición con el email o username a verificar
+   * #return, objeto con la propiedad "exists" que indica si el usuario o email existe
+   */
+  @Post('/check-existence')
+  @HttpCode(HttpStatus.OK)
+  async checkUserExistence(@Body() body: { email?: string; username?: string }): Promise<{ email?: string; username?: string }> {
+    const { email, username } = body;
+  
+    try {
+      const conflicts: { email?: string; username?: string } = {
+        email: email && (await this.userService.readUserByEmail(email)) ? email : undefined,
+        username: username && (await this.userService.readUserByUsername(username)) ? username : undefined,
+      };
+  
+      return conflicts;
+  
+    } catch (error) {
+      if (error instanceof HttpException && error.getStatus() === HttpStatus.NOT_FOUND) return {}; // Devuelve un objeto vacío si ninguno existe
+      throw error;
+    }
+  }
+  
+  
+  
 
 
 }
