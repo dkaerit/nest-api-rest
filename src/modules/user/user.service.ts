@@ -41,7 +41,7 @@ export class UserService {
    * #param value, valor a buscar en el campo especificado
    * #return usuario encontrado
    */
-  private async findUserByField(field: string, value: string): Promise<UserDto> {
+  public async findUserByField(field: string, value: string): Promise<UserDto> {
     value = value.replace(':', ''); // Elimina cualquier caracter ':' del valor proporcionado.
     const found = await this.userModel.findOne({ [field]: value }).exec(); // Realiza una búsqueda en la base de datos utilizando el campo y valor especificados.
     
@@ -57,7 +57,8 @@ export class UserService {
    * #return usuario encontrado
    */
   public async readUserByUsername(username: string): Promise<UserDto> {
-    return this.findUserByField('user', username);
+    
+    return this.findUserByField('username', username);
   }
 
   /**

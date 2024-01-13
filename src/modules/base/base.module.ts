@@ -7,6 +7,7 @@ import { BaseController } from './base.controller';
 import { BaseService } from './base.service';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
+import { CharacterModule } from '../character/character.module';
 
 // mongoose
 import { MongoModule } from '../../database/mongo.module';
@@ -15,6 +16,7 @@ import { MongoModule } from '../../database/mongo.module';
   imports: [ 
     MongoModule, // Módulo de MongoDB.
     UserModule, // Módulo de usuarios (dependencia).
+    CharacterModule, // Módulo de personajes (dependencia).
     AuthModule // Módulo de usuarios (dependencia).
   ],
   controllers: [BaseController],

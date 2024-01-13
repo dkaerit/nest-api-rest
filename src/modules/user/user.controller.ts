@@ -40,35 +40,54 @@ export class UserController {
    * #brief gestión de la petición post "/users/create" 
    * #return, lista de usuarios
    */
-  @Get('/read:user')
+  @Get('/read:identifier')
   @HttpCode(HttpStatus.OK)
-  async getUser(@Param('user') username: string): Promise<UserDto> { 
+  async getUserByUsername(@Param('identifier') identifier: string): Promise<UserDto> { 
     const keysToDelete = ["passwd"];
-    return omit(await this.userService.readUserByUsername(username), keysToDelete);
+    identifier = identifier.replace(':', '');
+
+    const identifiers = [
+      { regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, handler: 'email' },
+      { regex: /^[a-zA-Z0-9_]+$/, handler: 'username' },
+      { regex: /^\d{10}$/, handler: 'tlfn'},
+    ];
+
+    const handler = (identifier: string) => (identifiers.find(({ regex }) => regex.test(identifier))).handler;
+
+    return omit(await this.userService.findUserByField(handler(identifier), identifier), keysToDelete);
+  }
+
+/**
+ * Ruta para verificar la existencia de un usuario en la base de datos.
+ * @param body, cuerpo de la petición con el username a verificar
+ * @return, booleano que indica si el usuario existe
+ */
+  @Get('/checkuser:username')
+  @HttpCode(HttpStatus.OK)
+  async checkUserExistence(@Param('username') username: string): Promise<boolean> {
+    try {
+      const user = await this.userService.readUserByUsername(username);
+      return !!user; // Devuelve true si el usuario existe, false si no
+    } catch(err) {
+      if(err.status == 404) return false;
+    }
   }
 
   /**
-   * Ruta para verificar la existencia de un usuario o email en la base de datos.
-   * #param body, cuerpo de la petición con el email o username a verificar
-   * #return, objeto con la propiedad "exists" que indica si el usuario o email existe
+   * Ruta para verificar la existencia de un correo electrónico en la base de datos.
+   * @param body, cuerpo de la petición con el email a verificar
+   * @return, booleano que indica si el correo electrónico existe
    */
-  @Post('/check-existence')
+  @Get('/checkmail:email')
   @HttpCode(HttpStatus.OK)
-  async checkUserExistence(@Body() body: { email?: string; username?: string }): Promise<{ email?: string; username?: string }> {
-    const { email, username } = body;
-  
+  async checkEmailExistence(@Param('email') email: string): Promise<boolean> {
     try {
-      const conflicts: { email?: string; username?: string } = {
-        email: email && (await this.userService.readUserByEmail(email)) ? email : undefined,
-        username: username && (await this.userService.readUserByUsername(username)) ? username : undefined,
-      };
-  
-      return conflicts;
-  
-    } catch (error) {
-      if (error instanceof HttpException && error.getStatus() === HttpStatus.NOT_FOUND) return {}; // Devuelve un objeto vacío si ninguno existe
-      throw error;
+      const user = await this.userService.readUserByEmail(email);
+      return !!user; // Devuelve true si el correo electrónico existe, false si no
+    } catch(err) {
+      if(err.status == 404) return false;
     }
+
   }
   
   

@@ -5,9 +5,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ versionKey: '_vk' }) 
 export class User { 
-  @Prop({unique:true}) user: string;
-  @Prop({unique:true}) email: string;
+  @Prop({ unique: true }) username: string;
+  @Prop({ unique: true }) email: string;
   @Prop() passwd: string;
+  @Prop() avatar: string; 
+  @Prop() nickname: string; 
+  @Prop([String]) pjs: string[]; 
 }
 
 export type UserDocument = User & Document; // Tipo UserDocument: Define la estructura de un documento de usuario en la base de datos.
