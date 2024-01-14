@@ -5,17 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Schema({ versionKey: '_vk' })
 export class CharacterField {
-  @Prop({ required: true })
-  fieldName: string;
-
-  @Prop({ required: true })
-  data: string;
+  @Prop({ required: true }) fieldName: string;
+  @Prop({ required: true }) data: string;
 }
 
 @Schema({ versionKey: '_vk' })
 export class Character {
+  @Prop({ unique: true }) nickname: string;
   @Prop({ required: true }) ownerId: string;
-  @Prop({ required: true }) nickname: string;
   @Prop({ required: true }) pjname: string;
   @Prop() avatar: string;
   @Prop() bio: string;

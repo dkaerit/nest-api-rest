@@ -47,4 +47,18 @@ export class CharacterService {
   
       return character;
     }
+
+  /**
+   * Obtiene un personaje por su nickname.
+   * #param nickname Nickname del personaje.
+   * #returns El personaje encontrado o null si no existe.
+   */
+  async getCharacterByNickname(nickname: string): Promise<Character | null> {
+    try {
+      return this.characterModel.findOne({ nickname }).exec();
+    } catch (error) {
+      // Maneja cualquier error que pueda ocurrir durante la búsqueda del personaje por nickname
+      throw new HttpException('Error al obtener el personaje por nickname', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

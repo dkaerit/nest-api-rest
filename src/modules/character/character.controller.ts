@@ -29,4 +29,19 @@ export class CharacterController {
     pjname = pjname.replace(':', '');
     return this.characterService.updateCharacterById(pjname, datas);
   }
+
+  @Get('check:nickname')
+  @HttpCode(HttpStatus.OK)
+  async checkNickname(@Param('nickname') nickname: string): Promise<boolean> {
+    console.log("hola mundo")
+    try {
+      // Verifica la existencia del nickname en la base de datos
+      nickname = nickname.replace(':', '');
+      const character = await this.characterService.getCharacterByNickname(nickname);
+      return !!character; // Devuelve un objeto indicando si el nickname existe
+    } catch (error) {
+      // Maneja cualquier error que pueda ocurrir durante la verificación del nickname
+      throw new HttpException('Error al verificar el nickname', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
