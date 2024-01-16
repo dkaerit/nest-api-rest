@@ -27,7 +27,6 @@ export class RegisterAuthDto extends PartialType(LoginEmailAuthDto) {
     @ApiProperty() @IsNotEmpty() readonly username: string;
     @ApiProperty() readonly avatar: string;
     @ApiProperty() readonly nickname: string;
-    @ApiProperty() @IsArray() readonly pjs: string[];
   }
 
 // Objeto de transferencia de datos para la información de usuario tokenizado

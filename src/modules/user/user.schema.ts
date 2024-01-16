@@ -10,7 +10,6 @@ export class User {
   @Prop() passwd: string;
   @Prop() avatar: string; 
   @Prop() nickname: string; 
-  @Prop([String]) pjs: string[]; 
 }
 
 export type UserDocument = User & Document; // Tipo UserDocument: Define la estructura de un documento de usuario en la base de datos.

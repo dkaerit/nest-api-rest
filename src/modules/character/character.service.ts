@@ -61,4 +61,18 @@ export class CharacterService {
       throw new HttpException('Error al obtener el personaje por nickname', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  /**
+   * Obtiene todos los personajes de un usuario por su _id.
+   * #param userId _id del usuario.
+   * #returns Un array con todos los personajes del usuario o un array vacío si no tiene personajes.
+   */
+    async getCharactersByUserId(userId: string): Promise<Character[]> {
+      try {
+        return await this.characterModel.find({ ownerId: userId }).exec();
+      } catch (error) {
+        // Maneja cualquier error que pueda ocurrir durante la búsqueda de personajes por userId
+        throw new HttpException('Error al obtener los personajes por userId', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
 }

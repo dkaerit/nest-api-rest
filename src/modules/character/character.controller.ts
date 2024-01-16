@@ -33,7 +33,6 @@ export class CharacterController {
   @Get('check:nickname')
   @HttpCode(HttpStatus.OK)
   async checkNickname(@Param('nickname') nickname: string): Promise<boolean> {
-    console.log("hola mundo")
     try {
       // Verifica la existencia del nickname en la base de datos
       nickname = nickname.replace(':', '');
@@ -44,4 +43,20 @@ export class CharacterController {
       throw new HttpException('Error al verificar el nickname', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @Get('fetch:userId')
+  @HttpCode(HttpStatus.OK)
+  async fetchCharactersByUserId(@Param('userId') userId: string): Promise<Character[]> {
+    try {
+      // Obtiene todos los personajes del usuario por su _id
+      userId = userId.replace(':', '');
+      const characters = await this.characterService.getCharactersByUserId(userId);
+      return characters;
+    } catch (error) {
+      // Maneja cualquier error que pueda ocurrir durante la obtención de personajes por userId
+      throw new HttpException('Error al obtener los personajes por userId', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+
 }
