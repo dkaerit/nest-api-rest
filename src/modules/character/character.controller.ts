@@ -23,6 +23,12 @@ export class CharacterController {
     return this.characterService.getCharacterByName(pjname);
   }
 
+  @Get('id:pjid')
+  async getCharacterById(@Param('pjid') pjid: string): Promise<Character> {
+    pjid = pjid.replace(':', '');
+    return this.characterService.getCharacterById(pjid);
+  }
+
   @Put('update:pjname')
   @HttpCode(HttpStatus.OK)
   async updateCharacter(@Param('pjname') pjname: string, @Body() datas: UpdateCharacterDto): Promise<Character> {

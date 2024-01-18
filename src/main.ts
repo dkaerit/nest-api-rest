@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { BaseModule } from './modules/base/base.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { IoAdapter } from '@nestjs/platform-socket.io';
+import { Server } from 'socket.io';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(BaseModule);
@@ -26,9 +28,5 @@ async function bootstrap() {
   });
 
   await app.listen(3000);
-
-  const availableRoutes = app.getHttpServer()._events.request._router.stack
-  .reduce((acc, layer) => layer.route && !layer.route.path.startsWith('/api')? 
-  { ...acc, [layer.route.path]: layer.route.stack[0].method } : acc, {});
 }
 bootstrap();

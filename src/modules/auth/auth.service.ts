@@ -117,4 +117,18 @@ export class AuthService {
             throw new HttpException('Invalid token or token expired', HttpStatus.UNAUTHORIZED);
         }
     }
+
+    async getUserInfoByToken(token: string): Promise<UserDocument> {
+        try {
+            const decodedToken = this.jwtService.verify(token);
+            const userId = decodedToken.id;
+            // Obtén la información del usuario basándote en userId
+            const user = await this.userService.readUserById(userId);
+            // Elimina campos sensibles antes de devolver la información del usuario
+            const userInfo = omit(user, ['passwd', 'email']);
+            return userInfo;
+        } catch (error) {
+            throw new HttpException('Invalid token or token expired', HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

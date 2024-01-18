@@ -79,6 +79,10 @@ export class UserService {
     return this.findUserByField('tlfn', tlfn);
   }
 
+  public async readUserById(id: string): Promise<UserDto> {
+    return this.findUserByField('_id', id);
+  }
+
 
 
 }

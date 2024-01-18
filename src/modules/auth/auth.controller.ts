@@ -6,7 +6,7 @@ import { RegisterAuthDto, LoginEmailAuthDto, LoginUsernameAuthDto, LoginTlfnAuth
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     /**
      * Registra un usuario en la aplicación.
@@ -55,5 +55,10 @@ export class AuthController {
     @Get('/expiration')
     checkTokenExpiration(@Headers('authorization') token: string) {
         return this.authService.checkTokenExpiration(token);
+    }
+
+    @Get('/user-info')
+    getUserInfoByToken(@Headers('authorization') token: string) {
+        return this.authService.getUserInfoByToken(token);
     }
 }

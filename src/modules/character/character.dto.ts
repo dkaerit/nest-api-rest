@@ -1,19 +1,20 @@
 // src/characters/dto/character.dto.ts
-import { IsNotEmpty, IsString, IsArray, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsArray, MinLength, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CharacterFieldDto {
-  @IsNotEmpty() @IsString() fieldName: string;
-  @IsNotEmpty() @IsString() data: string;
+  @IsNotEmpty() fieldName: string;
+  @IsNotEmpty() data: string;
 }
 
 export class CharacterDto {
-  @IsNotEmpty() @IsString() ownerId: string;
-  @IsNotEmpty() @IsString() avatar: string;
-  @IsNotEmpty() @IsString() bio: string;
-  @IsNotEmpty() @IsString() nickname: string;
-  @IsNotEmpty() @IsString() pjname: string;
-  @IsOptional() @IsArray() shortFields?: CharacterFieldDto[];
-  @IsOptional() @IsArray() longFields?: CharacterFieldDto[];
+  @ApiProperty() @IsNotEmpty() @MinLength(4) readonly pjname: string;
+  @ApiProperty() @IsNotEmpty() readonly avatar: string;
+  @ApiProperty() @IsNotEmpty() readonly ownerId: string;
+  @ApiProperty() @IsNotEmpty() readonly nickname: string;
+  @ApiProperty() @IsOptional() readonly bio: string;
+  @ApiProperty() @IsOptional() readonly shortFields?: CharacterFieldDto[];
+  @ApiProperty() @IsOptional() readonly longFields?: CharacterFieldDto[];
 }
 
 export class UpdateCharacterDto {
