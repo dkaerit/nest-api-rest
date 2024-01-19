@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, Get } from '@nestjs/common';
+import { Controller, Post, Body, Query, Get, Delete, Param } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto, GetPostsFilterDto } from './post.dto';
 
@@ -27,5 +27,15 @@ export class PostController {
   @Post("create")
   async createPost(@Body() postDto: CreatePostDto) {
     return this.postService.createPost(postDto);
+  }
+
+  /**
+   * Endpoint para eliminar un post por su ID.
+   * #param postId ID del post a eliminar.
+   */
+  @Delete('delete/id:postId')
+  async deletePost(@Param('postId') postId: string) {
+    postId = postId.replace(':', '');
+    return this.postService.deletePost(postId);
   }
 }

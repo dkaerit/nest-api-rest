@@ -27,11 +27,11 @@ export class PostService {
 
     // construir lista de condiciones
     if (filters?.authors?.length > 0) {
-      const authorIds:string[] = filters.authors.map((author) => author.authorId);
+      const authorIds: string[] = filters.authors.map((author) => author.authorId);
       query = query.where('authorId').in(authorIds);
-    } else if(filters?.globalAuthorType) {
+    } else if (filters?.globalAuthorType) {
       query = query.where('authorType').equals(filters.globalAuthorType);
-    } 
+    }
 
     //console.log("getPosts-page-pagesize", page, pageSize)
     //console.log("getPosts-filters-query", filters, querytext)
@@ -68,5 +68,20 @@ export class PostService {
     this.appGateway.sendNotificationToChannel(channelId, 'Nuevo post creado');
 
     return newPost;
+  }
+
+  /**
+   * Elimina un post por su ID.
+   * #param postId ID del post a eliminar.
+   * #throws NotFoundException si el post no se encuentra.
+   * #returns El post eliminado.
+   */
+  async deletePost(postId: string): Promise<Post> {
+    const post = await this.postModel.findByIdAndDelete(postId).exec();
+
+    if (!post)
+    throw new Error(`Post with ID ${postId} not found`);
+
+    return post;
   }
 }
